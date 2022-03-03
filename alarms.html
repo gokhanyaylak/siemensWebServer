@@ -1,0 +1,253 @@
+<!-- AWP_In_Variable Name='"webdata".machineState' -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <title>Alarms</title>
+</head>
+<body>
+
+<!--Navigation bar-->
+<nav class="navbar navbar-expand-lg navbar-dark  my-4" style="background-color: #0064A9;">
+    <div class="container">
+  
+      <a class="navbar-brand" href="index.html">Main</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_icerik" >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="collapse navbar-collapse" id="navbar_icerik">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="alarms.html">Alarms</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">İletişim</a>
+          </li>
+        </ul>
+   
+      </div>
+  
+    </div>
+  
+  
+  
+  </nav>
+
+<!--tablo-->
+<div class="container">
+
+    <div class="row">
+      
+      <div class="col-12 col-md-4"> 
+        <div class="card h-100">       
+          <div class="card-body">
+            <h2 class="card-title">Control</h2>
+            <hr>
+            <h5 class="card-text">Current State</h5>
+            <p id="currentState1"></p>
+            <div style="text-align: center;">
+              <!--
+              <button id="startButton1" onclick="startDevice1();" type="button" class="btn btn-success btn-primary" style="width:100%;margin-bottom: 5px;margin-top:5px;">Start</button>             
+              <button id="stopButton1" onclick="stopDevice1();" type="button" class="btn btn-danger btn-primary" style="width:100%">Stop</button>
+         -->
+         <form method="post" action="">
+          <input id="startButton" type="submit" value="Start" class="inputbutton btn btn-success btn-primary" style="width:100%;margin-bottom: 5px;margin-top:5px;">
+          <input type="hidden" name='"webdata".machineState' value="1">
+          </form>
+          <form method="post" action="">
+            <input id="stopButton" type="submit" value="Stop" class="inputbutton  btn btn-danger btn-primary" style="width:100%">
+            <input type="hidden" name='"webdata".machineState' value="0">
+            </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+        <div class="col-12 col-md-8">
+          <div class="card h-100">       
+            <div class="card-body">
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Alarm Descriprion</th>
+      <th scope="col">Statu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr id="alarm1Row">
+      <th scope="row">1</th>
+      <td>Alarm1</td>
+      <td  id="alarm1Values"></td>
+    </tr>
+    <tr id="alarm2Row">
+      <th scope="row">2</th>
+      <td>Alarm2</td>
+      <td id="alarm2Values"></td>
+    </tr>
+    <tr id="alarm3Row">
+      <th scope="row">3</th>
+      <td>Alarm3</td>
+      <td id="alarm3Values"></td>
+    </tr>
+    <tr id="alarm4Row">
+      <th scope="row">4</th>
+      <td>Alarm4</td>
+      <td id="alarm4Values"></td>
+    </tr>
+    <tr id="alarm5Row">
+      <th scope="row">5</th>
+      <td>Alarm5</td>
+      <td id="alarm5Values"></td>
+    </tr>
+    <tr id="alarm6Row">
+      <th scope="row">6</th>
+      <td>Alarm6</td>
+      <td id="alarm6Values"></td>
+    </tr>
+    <tr id="alarm7Row">
+      <th scope="row">7</th>
+      <td>Alarm7</td>
+      <td id="alarm7Values"></td>
+    </tr>
+    <tr id="alarm8Row">
+      <th scope="row">8</th>
+      <td>Alarm8</td>
+      <td id="alarm8Values"></td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+</div>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+
+<footer class="bg-light text-center text-lg-start fixed-bottom">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: #0064A9">
+    © 2020 Copyright:
+    <a class="text-dark" href="https://tmsgrup.com/">tmsgrup.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+
+
+<script src="jquery-3.6.0.min.js"></script>
+<script src="popper.min.js"></script>
+<script src="bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $.ajaxSetup({ cache: false });
+  setInterval(function() {
+   
+      $.getJSON("alarmSource.html", function(result){
+      
+          $('#alarm1Values').text(result.alarm1);
+          $('#alarm2Values').text(result.alarm2);
+          $('#alarm3Values').text(result.alarm3);
+          $('#alarm4Values').text(result.alarm4);
+          $('#alarm5Values').text(result.alarm5);
+          $('#alarm6Values').text(result.alarm6);
+          $('#alarm7Values').text(result.alarm7);
+          $('#alarm8Values').text(result.alarm8);
+         
+         //alarm1 change color
+          if(result.alarm1==1)
+          {
+            document.getElementById("alarm1Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm1Row").style.backgroundColor = "White";
+          }
+
+          //alarm2 change color
+          if(result.alarm2==1)
+          {
+            document.getElementById("alarm2Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm2Row").style.backgroundColor = "White";
+          }
+
+          //alarm3 change color
+          if(result.alarm3==1)
+          {
+            document.getElementById("alarm3Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm3Row").style.backgroundColor = "White";
+          }
+
+          //alarm4 change color
+          if(result.alarm4==1)
+          {
+            document.getElementById("alarm4Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm4Row").style.backgroundColor = "White";
+          }
+
+          //alarm5 change color
+          if(result.alarm5==1)
+          {
+            document.getElementById("alarm5Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm5Row").style.backgroundColor = "White";
+          }
+
+          //alarm6 change color
+          if(result.alarm6==1)
+          {
+            document.getElementById("alarm6Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm6Row").style.backgroundColor = "White";
+          }
+
+          //alarm7 change color
+          if(result.alarm7==1)
+          {
+            document.getElementById("alarm7Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm7Row").style.backgroundColor = "White";
+          }
+
+          //alarm8 change color
+          if(result.alarm8==1)
+          {
+            document.getElementById("alarm8Row").style.backgroundColor = "Red";
+          }else
+          {
+            document.getElementById("alarm8Row").style.backgroundColor = "White";
+          }
+
+
+          if(result.machineState==1){
+            $('#currentState1').text("Running");
+          }else{
+            $('#currentState1').text("Stop");
+          }
+
+      });
+  },3000);
+  });
+</script>
+
+
+</body>
+</html>

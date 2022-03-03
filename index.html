@@ -1,0 +1,170 @@
+<!-- AWP_In_Variable Name='"webdata".machineState' -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap.min.css" >
+    <title>Main</title>
+</head>
+<body>
+
+  <!--Navigation bar-->
+<nav class="navbar navbar-expand-lg navbar-dark  my-4" style="background-color: #0064A9;">
+  <div class="container"  >
+    <a class="navbar-brand" href="index.html">Main</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_icerik" >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar_icerik">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="alarms.html">Alarms</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">İletişim</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>			
+
+<!--tablo-->
+<div class="container">
+    <div class="row">
+      <div class="col-12 col-md-4" style="padding-bottom:10px;"> 
+        <div class="card h-100">       
+          <div class="card-body">
+            <h2 class="card-title">Control</h2>
+            <hr>
+            <h5 class="card-text">Current State</h5>
+            <p id="currentState"></p>
+            <div style="text-align: center;">
+              <!--
+              <button id="startButton" onclick="startDevice();" type="button" class="btn btn-success btn-primary" style="width:100%;margin-bottom: 5px;margin-top:5px;">Start</button>             
+              <button id="stopButton" onclick="stopDevice();" type="button" class="btn btn-danger btn-primary" style="width:100%">Stop</button>
+          -->
+          <form method="post" action="">
+            <input id="startButton" type="submit" value="Start" class="inputbutton btn btn-success btn-primary" style="width:100%;margin-bottom: 5px;margin-top:5px;">
+            <input type="hidden" name='"webdata".machineState' value="1">
+            </form>
+            <form method="post" action="">
+              <input id="stopButton" type="submit" value="Stop" class="inputbutton  btn btn-danger btn-primary" style="width:100%">
+              <input type="hidden" name='"webdata".machineState' value="0">
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+        <div class="col-12 col-md-8" style="padding-bottom:10px;">
+          <div class="card h-100">       
+            <div class="card-body">
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Value</th>
+      <th scope="col">Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Temp1</td>
+      <td id="sicaklik1"></td>
+      <td>Degree</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Temp2</td>
+      <td id="sicaklik2"></td>
+      <td>Degree</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Temp3</td>
+      <td id="sicaklik3"></td>
+      <td>Degree</td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>Temp4</td>
+      <td id="sicaklik4"></td>
+      <td>Degree</td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>Temp5</td>
+      <td id="sicaklik5"></td>
+      <td>Degree</td>
+    </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td>Temp6</td>
+      <td id="sicaklik6"></td>
+      <td>Degree</td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>temp7</td>
+      <td id="sicaklik7"></td>
+      <td>Degree</td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
+</div>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<footer class="bg-light text-center text-lg-start fixed-bottom">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: #0064A9">
+    © 2020 Copyright:
+    <a class="text-dark" href="https://tmsgrup.com/">tmsgrup.com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+
+
+<script src="jquery-3.6.0.min.js"></script>
+<script src="popper.min.js"></script>
+<script src="bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $.ajaxSetup({ cache: false });
+  setInterval(function() {
+    
+      $.getJSON("sicaklik.html", function(result){
+          $('#sicaklik1').text(result.sicaklik1);
+          $('#sicaklik2').text(result.sicaklik2);
+          $('#sicaklik3').text(result.sicaklik3);
+          $('#sicaklik4').text(result.sicaklik4);
+          $('#sicaklik5').text(result.sicaklik5);
+          $('#sicaklik6').text(result.sicaklik6);
+          $('#sicaklik7').text(result.sicaklik7);
+
+          if(result.machineState==1){
+            $('#currentState').text("Running");
+          }else{
+            $('#currentState').text("Stop");
+          }
+      });
+  },3000);
+  });
+</script>
+
+
+</body>
+</html>
